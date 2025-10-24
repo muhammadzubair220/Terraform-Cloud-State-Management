@@ -12,12 +12,4 @@ terraform {
       source = "hashicorp/archive"
     }
   }
-  cloud { 
-    organization = "securezee" 
-
-    workspaces { 
-      name = "demo-cli-driven-aws-workspace" 
-    } 
-  } 
-
-}
+  cloud {}
