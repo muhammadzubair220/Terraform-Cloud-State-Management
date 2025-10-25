@@ -25,7 +25,6 @@ jobs:
   infrastructure-setup-using-terraform:
     name: Terraform ${{ github.event.inputs.action }}
     runs-on: ubuntu-24.04
-    environment: production
 
     defaults:
       run:
