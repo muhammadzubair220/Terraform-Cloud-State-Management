@@ -12,6 +12,6 @@ terraform {
       source = "hashicorp/archive"
     }
   }
-  
+
   cloud {}
 }
