@@ -23,8 +23,9 @@ permissions:
 
 jobs:
   infrastructure-setup-using-terraform:
-    name: Terraform ${{ github.event.inputs.action }}
+    name: Terraform ${{ github.event.input.actions }}
     runs-on: ubuntu-24.04
+    environment: production
 
     defaults:
       run:
@@ -39,7 +40,7 @@ jobs:
         with:
           terraform_version: "1.13.3"
           terraform_wrapper: true
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          cli_config_credentials_token: ${{ secrets. TF_API_TOKEN }}
 
       - name: Cache Terraform
         uses: actions/cache@v4
@@ -56,25 +57,18 @@ jobs:
 
       - name: Terraform Format Check
         run: terraform fmt -check --diff
-        continue-on-error: false
 
       - name: Terraform Validate
         run: terraform validate
-        continue-on-error: false
 
       - name: Terraform Plan
         if: ${{ github.event.inputs.action == 'plan' }}
-        run: |
-          terraform plan -input=false -out=tfplan
-          terraform show -no-color tfplan
-        continue-on-error: false
+        run: terraform plan -input=false
 
       - name: Terraform Apply
         if: ${{ github.event.inputs.action == 'apply' }}
         run: terraform apply -auto-approve
-        continue-on-error: false
 
-      - name: Terraform Destroy
+      - name: Terraform destroy
         if: ${{ github.event.inputs.action == 'destroy' }}
         run: terraform destroy -auto-approve
-        continue-on-error: false
