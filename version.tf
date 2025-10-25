@@ -12,4 +12,12 @@ terraform {
       source = "hashicorp/archive"
     }
   }
-  cloud {}
+  
+  cloud {
+    organization = "your-terraform-cloud-org"
+    
+    workspaces {
+      name = "terraform-cloud-state-management"
+    }
+  }
+}
